@@ -1,5 +1,14 @@
 exports.Query = {
-  products: (parent, args, context) => {
+  products: (parent, { filter }, context) => {
+    let filteredProducts = products;
+
+    if (filter) {
+      if (filter.onSale === true) {
+        filteredProducts = filteredProducts.filter((product) => {
+          return product.onSale;
+        });
+      }
+    }
     const { products } = context;
     return products;
   },
